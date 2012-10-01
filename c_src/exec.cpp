@@ -51,6 +51,7 @@
 #include <sys/capability.h>
 #endif
 
+#include <sys/resource.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/time.h>
@@ -547,7 +548,7 @@ pid_t start_child(const char* cmd, const char* cd, char* const* env, int user, i
         case 0: {
             #if !defined(__CYGWIN__) && !defined(__WIN32)
             // I am the child
-            if (user != INT_MAX && setresuid(user, user, user) < 0) {
+            if (user != INT_MAX && setuid(user) < 0) {
                 err.write("Cannot set effective user to %d", user);
                 perror(err.c_str());
                 return EXIT_FAILURE;
