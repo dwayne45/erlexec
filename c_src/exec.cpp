@@ -46,7 +46,7 @@
 #include <unistd.h>
 #include <signal.h>
 
-#ifdef USE_PRCTL
+#ifdef __linux__
 #include <sys/prctl.h>
 #include <sys/capability.h>
 #endif
@@ -337,7 +337,7 @@ int main(int argc, char* argv[])
             exit(4);
         }
 
-        #ifdef USE_PRCTL
+        #ifdef __linux__
        	if (prctl(PR_SET_KEEPCAPS, 1) < 0) {
     		perror("Failed to call prctl to keep capabilities");
 	    	exit(5);

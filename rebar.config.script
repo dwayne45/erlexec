@@ -5,14 +5,9 @@ Vsn  = binary_to_list(binary:replace(I, <<"\n">>, <<"">>)),
 lists:keymerge(1,
     lists:keysort(1, [
         {port_env, [
-		    %% XXXjh Uncomment to use Linux capability API. Broken on [K]Ubuntu?
-                    %% {"linux", "CFLAGS", "$CFLAGS -DUSE_PRCTL"},
-                    %% {"linux", "LDFLAGS", "$LDFLAGS -lcap"},
-
-                    %% XXXjh Force 64bit build, assume default g++ and native ld.
+                    {"linux", "LDFLAGS", "$LDFLAGS -lcap"},
                     {"solaris", "CXXFLAGS", "$CXXFLAGS -m64"},
                     {"solaris", "LDFLAGS", "$LDFLAGS -m64 -lrt"},
-
                     {"CC",  "g++"},
                     {"CXX", "g++"}
                    ]},
